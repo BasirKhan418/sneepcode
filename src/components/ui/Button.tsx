@@ -26,13 +26,30 @@ const Button: React.FC<MotionButtonProps> = ({
   children, 
   ...motionProps 
 }) => {
-  const baseClasses = "inline-flex items-center justify-center font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+  const baseClasses = "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
   
   const variantClasses = {
-    primary: "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl focus:ring-blue-500",
-    secondary: "bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-900 dark:text-white focus:ring-slate-500",
-    outline: "border-2 border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 focus:ring-slate-500",
-    ghost: "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 focus:ring-slate-500"
+    primary: `
+      bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 
+      text-white shadow-sm hover:shadow-md
+      focus:ring-blue-500/50
+    `,
+    secondary: `
+      bg-white hover:bg-gray-50 
+      text-gray-900 border border-gray-200 hover:border-gray-300
+      shadow-sm hover:shadow-md
+      focus:ring-gray-500/50
+    `,
+    outline: `
+      border border-gray-300 hover:border-gray-400 
+      text-gray-700 hover:bg-gray-50 
+      focus:ring-gray-500/50
+    `,
+    ghost: `
+      text-gray-600 hover:text-gray-900 
+      hover:bg-gray-100 
+      focus:ring-gray-500/50
+    `
   };
   
   const sizeClasses = {
@@ -45,7 +62,7 @@ const Button: React.FC<MotionButtonProps> = ({
     <motion.button
       className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
       disabled={disabled || loading}
-      whileHover={!disabled && !loading ? { scale: 1.02 } : {}}
+      whileHover={!disabled && !loading ? { scale: 1.02, y: -1 } : {}}
       whileTap={!disabled && !loading ? { scale: 0.98 } : {}}
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
       {...motionProps}

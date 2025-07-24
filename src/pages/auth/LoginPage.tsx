@@ -2,13 +2,79 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff, Mail, Lock, ArrowRight, Github } from 'lucide-react';
 import AuthLayout from '../../components/layout/AuthLayout';
-import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 import SocialButton from '../../components/ui/SocialButton';
 
 interface LoginPageProps {
   onNavigate: (page: 'login' | 'signup' | 'forgot' | 'reset') => void;
 }
+
+// Clean Input Component
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  icon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  error?: string;
+  label?: string;
+}
+
+const CleanInput: React.FC<InputProps> = ({ 
+  icon, 
+  rightIcon, 
+  error, 
+  label,
+  className = '', 
+  ...props 
+}) => {
+  return (
+    <div className="space-y-2">
+      {label && (
+        <label className="block text-sm font-medium text-gray-700">
+          {label}
+        </label>
+      )}
+      
+      <div className="relative">
+        {icon && (
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            {icon}
+          </div>
+        )}
+        
+        <motion.input
+          className={`
+            w-full h-12 ${icon ? 'pl-10' : 'pl-4'} ${rightIcon ? 'pr-12' : 'pr-4'}
+            bg-white border border-gray-200 rounded-lg
+            text-gray-900 placeholder-gray-500
+            focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500
+            transition-all duration-200
+            ${error ? 'border-red-300 focus:ring-red-500/20 focus:border-red-500' : ''}
+            ${className}
+          `}
+          whileFocus={{ scale: 1.01 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          {...(props as any)}
+        />
+        
+        {rightIcon && (
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+            {rightIcon}
+          </div>
+        )}
+      </div>
+      
+      {error && (
+        <motion.p 
+          className="text-sm text-red-600"
+          initial={{ opacity: 0, y: -5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          {error}
+        </motion.p>
+      )}
+    </div>
+  );
+};
 
 const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,11 +105,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
       <motion.form 
         onSubmit={handleSubmit}
         className="space-y-6"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.1 }}
       >
-        <Input
+        <CleanInput
           icon={<Mail className="w-5 h-5" />}
           type="email"
           placeholder="Enter your email"
@@ -52,7 +118,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
           required
         />
 
-        <Input
+        <CleanInput
           icon={<Lock className="w-5 h-5" />}
           type={showPassword ? "text" : "password"}
           placeholder="Enter your password"
@@ -62,7 +128,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 transition-colors"
+              className="text-gray-400 hover:text-gray-600 transition-colors"
             >
               {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
             </button>
@@ -76,14 +142,14 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
               type="checkbox"
               checked={formData.rememberMe}
               onChange={(e) => setFormData(prev => ({ ...prev, rememberMe: e.target.checked }))}
-              className="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500 focus:ring-2"
+              className="w-4 h-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
             />
-            <span className="text-sm text-slate-600 dark:text-slate-300">Remember me</span>
+            <span className="text-sm text-gray-600">Remember me</span>
           </label>
           <button
             type="button"
             onClick={() => onNavigate('forgot')}
-            className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium"
+            className="text-sm text-blue-600 hover:text-blue-700 transition-colors font-medium"
           >
             Forgot password?
           </button>
@@ -96,16 +162,16 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-slate-200 dark:border-slate-700" />
+            <div className="w-full border-t border-gray-200" />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-4 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+            <span className="px-4 bg-white text-gray-500">
               Or continue with
             </span>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3">
           <SocialButton
             icon={<Github className="w-5 h-5" />}
             onClick={handleGithubLogin}
@@ -125,12 +191,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
           />
         </div>
 
-        <p className="text-center text-sm text-slate-600 dark:text-slate-300">
+        <p className="text-center text-sm text-gray-600">
           Don't have an account?{' '}
           <button
             type="button"
             onClick={() => onNavigate('signup')}
-            className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors"
+            className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
           >
             Sign up
           </button>
