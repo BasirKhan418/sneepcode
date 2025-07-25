@@ -1,0 +1,11 @@
+node_modules
+.DS_Store
+dist
+build
+coverage
+*.log
+*.tsbuildinfo
+*.js
+*.d.ts
+*.js.map
+.env
