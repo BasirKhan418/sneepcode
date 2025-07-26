@@ -16,13 +16,13 @@ const Button: React.FC<ButtonProps> = ({
   children, 
   ...props 
 }) => {
-  const baseClasses = "inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden";
+  const baseClasses = "inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden";
   
   const variantClasses = {
-    primary: "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 focus:ring-blue-500/50 border border-blue-600/20",
-    secondary: "bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-200 hover:border-gray-300 focus:ring-blue-500/50 shadow-sm hover:shadow-md",
-    outline: "border-2 border-blue-200 hover:border-blue-300 text-blue-700 hover:bg-blue-50 focus:ring-blue-500/50 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md",
-    ghost: "text-gray-600 hover:text-gray-900 hover:bg-white/80 focus:ring-blue-500/50 backdrop-blur-sm"
+    primary: "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 focus:ring-blue-400/50 border border-blue-500/30 hover:scale-[1.02] active:scale-[0.98]",
+    secondary: "bg-white/10 hover:bg-white/15 text-white border border-white/20 hover:border-white/30 focus:ring-blue-400/50 backdrop-blur-sm",
+    outline: "border border-white/30 hover:border-white/50 text-white hover:bg-white/10 focus:ring-blue-400/50 backdrop-blur-sm",
+    ghost: "text-white/80 hover:text-white hover:bg-white/10 focus:ring-blue-400/50 backdrop-blur-sm"
   };
   
   const sizeClasses = {
