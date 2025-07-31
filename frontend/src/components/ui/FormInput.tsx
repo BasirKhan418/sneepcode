@@ -12,14 +12,14 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
     return (
       <div className="space-y-2">
         {label && (
-          <label className="block text-sm font-semibold text-gray-800">
+          <label className="block text-sm font-semibold text-white/90">
             {label}
           </label>
         )}
         
         <div className="relative group">
           {icon && (
-            <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 z-10 group-focus-within:text-blue-500 transition-colors duration-200">
+            <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/50 z-10 group-focus-within:text-blue-400 transition-colors duration-200">
               {icon}
             </div>
           )}
@@ -28,12 +28,12 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             ref={ref}
             className={`
               w-full h-12 ${icon ? 'pl-12' : 'pl-4'} ${rightIcon ? 'pr-12' : 'pr-4'}
-              bg-white/95 backdrop-blur-sm border-2 border-gray-200 rounded-xl
-              text-gray-900 placeholder-gray-500 font-medium
-              focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500
-              hover:border-gray-300 hover:bg-white
-              transition-all duration-200 shadow-sm hover:shadow-md focus:shadow-lg
-              ${error ? 'border-red-300 focus:ring-red-500/20 focus:border-red-500 bg-red-50/50' : ''}
+              bg-white/[0.08] backdrop-blur-sm border border-white/20 rounded-xl
+              text-white placeholder-white/50 font-medium
+              focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400/50
+              hover:border-white/30 hover:bg-white/[0.12]
+              transition-all duration-200
+              ${error ? 'border-red-400/60 focus:ring-red-400/50 focus:border-red-400 bg-red-500/[0.08]' : ''}
               ${className}
             `}
             {...props}
@@ -48,10 +48,10 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         
         {error && (
           <div className="flex items-center space-x-2 mt-2">
-            <svg className="w-4 h-4 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 text-red-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <p className="text-sm text-red-600 font-medium">
+            <p className="text-sm text-red-400 font-medium">
               {error}
             </p>
           </div>

@@ -37,7 +37,6 @@ interface GenericFormProps {
   onFormChange?: (data: FieldValues) => void;
 }
 
-// Password Toggle Component
 const PasswordToggle: React.FC<{ 
   fieldName: string; 
   showPassword: boolean; 
@@ -47,7 +46,7 @@ const PasswordToggle: React.FC<{
     <button
       type="button"
       onClick={onToggle}
-      className="text-gray-400 hover:text-blue-600 transition-colors duration-200 p-1 rounded-lg hover:bg-blue-50"
+      className="text-white/50 hover:text-blue-400 transition-colors duration-200 p-1 rounded-lg hover:bg-white/10"
     >
       {showPassword ? (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,7 +81,6 @@ const GenericForm: React.FC<GenericFormProps> = ({
     mode: 'onChange',
   });
 
-  // Watch form changes for real-time validation
   const watchedValues = watch();
   
   React.useEffect(() => {
@@ -116,18 +114,18 @@ const GenericForm: React.FC<GenericFormProps> = ({
   return (
     <div className="space-y-6">
       {error && (
-        <div className="bg-white/95 backdrop-blur-lg border-2 border-red-200 rounded-xl p-4 shadow-sm">
+        <div className="bg-red-500/10 backdrop-blur-sm border border-red-400/30 rounded-xl p-4">
           <div className="flex items-start space-x-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg shadow-red-500/25">
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-6 h-6 bg-red-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <h4 className="text-sm font-bold text-red-900 mb-1">
+              <h4 className="text-sm font-semibold text-red-300 mb-1">
                 Error
               </h4>
-              <p className="text-sm text-red-700 font-medium">{error}</p>
+              <p className="text-sm text-red-400 font-medium">{error}</p>
             </div>
           </div>
         </div>
@@ -137,17 +135,17 @@ const GenericForm: React.FC<GenericFormProps> = ({
         {config.fields.map((field) => {
           if (field.type === 'checkbox') {
             return (
-              <label key={field.name} className="flex items-start space-x-3 cursor-pointer group p-3 rounded-xl hover:bg-blue-50/50 transition-colors duration-200">
+              <label key={field.name} className="flex items-start space-x-3 cursor-pointer group p-3 rounded-xl hover:bg-white/5 transition-colors duration-200">
                 <input
                   type="checkbox"
                   {...register(field.name)}
-                  className="w-5 h-5 text-blue-600 bg-white border-2 border-gray-300 rounded-lg focus:ring-blue-500 focus:ring-2 mt-0.5 transition-colors duration-200"
+                  className="w-4 h-4 text-blue-500 bg-white/10 border-2 border-white/30 rounded focus:ring-blue-400 focus:ring-2 mt-0.5 transition-colors duration-200"
                 />
-                <span className="text-sm text-gray-700 font-medium group-hover:text-gray-900 transition-colors duration-200">
+                <span className="text-sm text-white/80 font-medium group-hover:text-white transition-colors duration-200">
                   {field.label}
                 </span>
                 {errors[field.name] && (
-                  <p className="text-sm text-red-600 font-medium">
+                  <p className="text-sm text-red-400 font-medium">
                     {errors[field.name]?.message as string}
                   </p>
                 )}
@@ -195,12 +193,12 @@ const GenericForm: React.FC<GenericFormProps> = ({
       {config.links && (
         <div className="space-y-3 mt-6">
           {config.links.map((link, index) => (
-            <p key={index} className="text-center text-sm text-gray-600">
+            <p key={index} className="text-center text-sm text-white/70">
               {link.text}{' '}
               <button
                 type="button"
                 onClick={link.onClick}
-                className="text-blue-600 hover:text-blue-700 font-semibold transition-colors duration-200 hover:underline"
+                className="text-blue-400 hover:text-blue-300 font-semibold transition-colors duration-200 hover:underline"
               >
                 {link.linkText}
               </button>
